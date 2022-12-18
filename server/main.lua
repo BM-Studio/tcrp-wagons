@@ -14,7 +14,7 @@ RegisterServerEvent('tcrp-wagons:server:BuyWagon', function(price, model, newnam
     local src = source
     local Player = QRCore.Functions.GetPlayer(src)
     if (Player.PlayerData.money.cash < price) then
-        print("buy a wagon")
+        TriggerClientEvent('QRCore:Notify', src, 'you don\'t have enough cash to do that!', 'error')
         return
     end
     MySQL.insert('INSERT INTO player_wagons(citizenid, name, wagon, active) VALUES(@citizenid, @name, @wagon, @active)', {
@@ -24,7 +24,7 @@ RegisterServerEvent('tcrp-wagons:server:BuyWagon', function(price, model, newnam
         ['@active'] = false,
     })
     Player.Functions.RemoveMoney('cash', price)
-    print("You have successfully bought a wagon")
+    TriggerClientEvent('QRCore:Notify', src, 'you now own this wagon', 'success')
 end)
 
 RegisterServerEvent('tcrp-wagons:server:SetWagosActive', function(id)
