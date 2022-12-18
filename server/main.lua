@@ -45,9 +45,26 @@ end)
 
 RegisterServerEvent('tcrp-wagons:server:DelWagos', function(id)
 	local src = source
-	local Player = QRCore.Functions.GetPlayer(src)
-    MySQL.update('DELETE FROM player_wagons WHERE id = ? AND citizenid = ?', { id, Player.PlayerData.citizenid })
-end)
+    local Player = QRCore.Functions.GetPlayer(src)
+    local modelWagon = nil
+    print(id)
+    print(Player)
+   
+    local player_wagons = MySQL.query.await('SELECT * FROM player_wagons WHERE id = @id AND `citizenid` = @citizenid', {
+        ['@id'] = id,
+        ['@citizenid'] = Player.PlayerData.citizenid
+    })
+    
+
+        print(player_wagons)
+        
+        for i = 1, #player_wagons do
+            if tonumber(player_wagons[i].id) == tonumber(id) then
+                modelWagon = player_wagons[i].wagon
+                MySQL.update('DELETE FROM player_wagons WHERE id = ? AND citizenid = ?', { id, Player.PlayerData.citizenid })
+                print('delete')
+            end
+    end
 
 QRCore.Functions.CreateCallback('tcrp-wagons:server:GetWagon', function(source, cb,comps)
 	local src = source
