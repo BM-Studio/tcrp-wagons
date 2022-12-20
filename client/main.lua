@@ -19,12 +19,6 @@ local WagonCalled = false
 local QRCore = exports['qr-core']:GetCoreObject()
 local newnames = ''
 local wagonDBID
-local SaddleUsing 
-local BlanketUsing 
-local HornUsing 
-local BagUsing 
-local SaddleData = {}
-local saddle
 local hasSpawned = false 
 local coords
 
@@ -55,17 +49,6 @@ end
 TriggerServerEvent('tcrp-wagons:renameWagon', input)
 end)
 
-RegisterCommand('pool',function()
-    local poolsize = Citizen.InvokeNative(0x313778EDCA9158E2)
-    local pop = Citizen.InvokeNative(0x8A3945405B31048F)
-    Wait(1000)
-    print("______________")
-    print("Pool Ped Slots Remaining : " ..poolsize)
-    print("______________") 
-    print("______________")
-    print("Pop Multiplier: " ..pop)
-    print(pop)
-end)
 
 Citizen.CreateThread(function() -- Handle Annesburg
     while true do
@@ -99,7 +82,7 @@ Citizen.CreateThread(function() -- Handle Annesburg
                             exports['qr-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
-                                        icon = "fas fa-horse-head",
+                                        icon = "fas fa-dharmachakra",
                                         label =  n.names.." || " .. n.price ..  "$",
                                         targeticon = "fas fa-eye",
                                         action = function(newnames)
@@ -138,7 +121,6 @@ Citizen.CreateThread(function() -- Handle Annesburg
                     end
             
                     Citizen.InvokeNative(0x283978A15512B2FE, ped, true)
-                    Citizen.InvokeNative(0x06FAACD625D80CAA, ped)
                     SetEntityCanBeDamaged(ped, false)
                     SetEntityInvincible(ped, true)
                     FreezeEntityPosition(ped, true)
@@ -149,7 +131,7 @@ Citizen.CreateThread(function() -- Handle Annesburg
                     exports['qr-target']:AddTargetEntity(ped, {
                         options = {
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Get your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -157,7 +139,7 @@ Citizen.CreateThread(function() -- Handle Annesburg
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Store Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -165,7 +147,7 @@ Citizen.CreateThread(function() -- Handle Annesburg
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Sell your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -174,7 +156,7 @@ Citizen.CreateThread(function() -- Handle Annesburg
                             },
 
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label =  "Trade Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -197,7 +179,7 @@ Citizen.CreateThread(function() -- Handle Annesburg
                 SetEntityAsNoLongerNeeded(v)
             end
             for k,v in pairs(annpcs) do
-                DeleteVehicle(v)
+                DeleteEntity(v)
                 SetEntityAsNoLongerNeeded(v)
             end
         end 
@@ -236,7 +218,7 @@ Citizen.CreateThread(function() -- Handle Strawberry
                             exports['qr-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
-                                        icon = "fas fa-horse-head",
+                                        icon = "fas fa-dharmachakra",
                                         label =  n.names.." || " .. n.price ..  "$",
                                         targeticon = "fas fa-eye",
                                         action = function(newnames)
@@ -275,7 +257,6 @@ Citizen.CreateThread(function() -- Handle Strawberry
                     end
             
                     Citizen.InvokeNative(0x283978A15512B2FE, ped, true)
-                    Citizen.InvokeNative(0x06FAACD625D80CAA, ped)
                     SetEntityCanBeDamaged(ped, false)
                     SetEntityInvincible(ped, true)
                     FreezeEntityPosition(ped, true)
@@ -286,7 +267,7 @@ Citizen.CreateThread(function() -- Handle Strawberry
                     exports['qr-target']:AddTargetEntity(ped, {
                         options = {
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Get your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -294,7 +275,7 @@ Citizen.CreateThread(function() -- Handle Strawberry
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Store Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -302,7 +283,7 @@ Citizen.CreateThread(function() -- Handle Strawberry
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Sell your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -311,7 +292,7 @@ Citizen.CreateThread(function() -- Handle Strawberry
                             },
 
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label =  "Trade Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -334,7 +315,7 @@ Citizen.CreateThread(function() -- Handle Strawberry
                 SetEntityAsNoLongerNeeded(v)
             end
             for k,v in pairs(sbnpcs) do
-                DeleteVehicle(v)
+                DeleteEntity(v)
                 SetEntityAsNoLongerNeeded(v)
             end
         end 
@@ -373,7 +354,7 @@ Citizen.CreateThread(function() -- Handle Rhodes
                             exports['qr-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
-                                        icon = "fas fa-horse-head",
+                                        icon = "fas fa-dharmachakra",
                                         label =  n.names.." || " .. n.price ..  "$",
                                         targeticon = "fas fa-eye",
                                         action = function(newnames)
@@ -412,7 +393,6 @@ Citizen.CreateThread(function() -- Handle Rhodes
                     end
             
                     Citizen.InvokeNative(0x283978A15512B2FE, ped, true)
-                    Citizen.InvokeNative(0x06FAACD625D80CAA, ped)
                     SetEntityCanBeDamaged(ped, false)
                     SetEntityInvincible(ped, true)
                     FreezeEntityPosition(ped, true)
@@ -423,7 +403,7 @@ Citizen.CreateThread(function() -- Handle Rhodes
                     exports['qr-target']:AddTargetEntity(ped, {
                         options = {
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Get your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -431,7 +411,7 @@ Citizen.CreateThread(function() -- Handle Rhodes
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Store Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -439,7 +419,7 @@ Citizen.CreateThread(function() -- Handle Rhodes
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Sell your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -448,7 +428,7 @@ Citizen.CreateThread(function() -- Handle Rhodes
                             },
 
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label =  "Trade Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -471,7 +451,7 @@ Citizen.CreateThread(function() -- Handle Rhodes
                 SetEntityAsNoLongerNeeded(v)
             end
             for k,v in pairs(rhnpcs) do
-                DeleteVehicle(v)
+                DeleteEntity(v)
                 SetEntityAsNoLongerNeeded(v)
             end
         end 
@@ -510,7 +490,7 @@ Citizen.CreateThread(function() -- Handle Blackwater
                             exports['qr-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
-                                        icon = "fas fa-horse-head",
+                                        icon = "fas fa-dharmachakra",
                                         label =  n.names.." || " .. n.price ..  "$",
                                         targeticon = "fas fa-eye",
                                         action = function(newnames)
@@ -549,7 +529,6 @@ Citizen.CreateThread(function() -- Handle Blackwater
                     end
             
                     Citizen.InvokeNative(0x283978A15512B2FE, ped, true)
-                    Citizen.InvokeNative(0x06FAACD625D80CAA, ped)
                     SetEntityCanBeDamaged(ped, false)
                     SetEntityInvincible(ped, true)
                     FreezeEntityPosition(ped, true)
@@ -560,7 +539,7 @@ Citizen.CreateThread(function() -- Handle Blackwater
                     exports['qr-target']:AddTargetEntity(ped, {
                         options = {
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Get your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -568,7 +547,7 @@ Citizen.CreateThread(function() -- Handle Blackwater
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Store Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -576,7 +555,7 @@ Citizen.CreateThread(function() -- Handle Blackwater
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Sell your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -585,7 +564,7 @@ Citizen.CreateThread(function() -- Handle Blackwater
                             },
 
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label =  "Trade Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -608,7 +587,7 @@ Citizen.CreateThread(function() -- Handle Blackwater
                 SetEntityAsNoLongerNeeded(v)
             end
             for k,v in pairs(bwnpcs) do
-                DeleteVehicle(v)
+                DeleteEntity(v)
                 SetEntityAsNoLongerNeeded(v)
             end
         end 
@@ -647,7 +626,7 @@ Citizen.CreateThread(function() -- Handle Saint Denis
                             exports['qr-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
-                                        icon = "fas fa-horse-head",
+                                        icon = "fas fa-dharmachakra",
                                         label =  n.names.." || " .. n.price ..  "$",
                                         targeticon = "fas fa-eye",
                                         action = function(newnames)
@@ -686,7 +665,6 @@ Citizen.CreateThread(function() -- Handle Saint Denis
                     end
             
                     Citizen.InvokeNative(0x283978A15512B2FE, ped, true)
-                    Citizen.InvokeNative(0x06FAACD625D80CAA, ped)
                     SetEntityCanBeDamaged(ped, false)
                     SetEntityInvincible(ped, true)
                     FreezeEntityPosition(ped, true)
@@ -697,7 +675,7 @@ Citizen.CreateThread(function() -- Handle Saint Denis
                     exports['qr-target']:AddTargetEntity(ped, {
                         options = {
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Get your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -705,7 +683,7 @@ Citizen.CreateThread(function() -- Handle Saint Denis
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Store Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -713,7 +691,7 @@ Citizen.CreateThread(function() -- Handle Saint Denis
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Sell your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -722,7 +700,7 @@ Citizen.CreateThread(function() -- Handle Saint Denis
                             },
 
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label =  "Trade Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -745,7 +723,7 @@ Citizen.CreateThread(function() -- Handle Saint Denis
                 SetEntityAsNoLongerNeeded(v)
             end
             for k,v in pairs(sdnpcs) do
-                DeleteVehicle(v)
+                DeleteEntity(v)
                 SetEntityAsNoLongerNeeded(v)
             end
         end 
@@ -783,7 +761,7 @@ Citizen.CreateThread(function() -- Handle Tumbleweed
                             exports['qr-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
-                                        icon = "fas fa-horse-head",
+                                        icon = "fas fa-dharmachakra",
                                         label =  n.names.." || " .. n.price ..  "$",
                                         targeticon = "fas fa-eye",
                                         action = function(newnames)
@@ -822,7 +800,6 @@ Citizen.CreateThread(function() -- Handle Tumbleweed
                     end
             
                     Citizen.InvokeNative(0x283978A15512B2FE, ped, true)
-                    Citizen.InvokeNative(0x06FAACD625D80CAA, ped)
                     SetEntityCanBeDamaged(ped, false)
                     SetEntityInvincible(ped, true)
                     FreezeEntityPosition(ped, true)
@@ -833,7 +810,7 @@ Citizen.CreateThread(function() -- Handle Tumbleweed
                     exports['qr-target']:AddTargetEntity(ped, {
                         options = {
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Get your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -841,7 +818,7 @@ Citizen.CreateThread(function() -- Handle Tumbleweed
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Store Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -849,7 +826,7 @@ Citizen.CreateThread(function() -- Handle Tumbleweed
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label = "Sell your wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -857,7 +834,7 @@ Citizen.CreateThread(function() -- Handle Tumbleweed
                                 end
                             },
                             {
-                                icon = "fas fa-horse-head",
+                                icon = "fas fa-dharmachakra",
                                 label =  "Trade Wagon",
                                 targeticon = "fas fa-eye",
                                 action = function()
@@ -880,7 +857,7 @@ Citizen.CreateThread(function() -- Handle Tumbleweed
                 SetEntityAsNoLongerNeeded(v)
             end
             for k,v in pairs(twnpcs) do
-                DeleteVehicle(v)
+                DeleteEntity(v)
                 SetEntityAsNoLongerNeeded(v)
             end
         end 
@@ -908,7 +885,6 @@ function InvWagon()
             local hcoords = GetEntityCoords(wagonPed)
             if #(pcoords - hcoords) <= 1.7 then
                 local wagonstash = data.name..data.citizenid
-                --TriggerEvent('tcrp-wagon:client:wagoninventory')
                 print(wagonstash)
                 TriggerServerEvent("inventory:server:OpenInventory", "stash", wagonstash, { maxweight = 500000, slots = 40, })
                 TriggerEvent("inventory:client:SetCurrentStash", wagonstash)
@@ -945,8 +921,6 @@ local function SpawnWagon()
             local location = GetEntityCoords(ped)
             local howfar = math.random(50,100)
             local hname = data.name
-            --local wagonId = data.player.id
-            --local wagonstash = hname..model..
 
             if (location) then
                 while not HasModelLoaded(model) do
@@ -982,7 +956,6 @@ local function SpawnWagon()
                     return
                 end
                 local coords = GetEntityCoords(ped)
-                --local coords = GetEntityCoords(wagonPed)
                 local heading = GetEntityHeading(ped)-180
                 if (wagonPed == 0) then
                     wagonPed = CreateVehicle(model, spawnPosition, heading, true, true, 0, 0)
@@ -1004,374 +977,13 @@ local function SpawnWagon()
                     moveWagonToPlayer()
                     applyImportantThings()
                     print(SaddleUsing)
---[[                     RegisterCommand('tackshop',function()
-                        local function createCamera(wagonPed)
-                            local coords = GetEntityCoords(wagonPed)
-                            TriggerEvent('tcrp-wagons:custMenu')
-                            groundCam = CreateCam("DEFAULT_SCRIPTED_CAMERA")
-                            SetCamCoord(groundCam, coords.x + 0.5, coords.y - 3.6, coords.z )
-                            SetCamRot(groundCam, 10.0, 0.0, 0 + 20)
-                            SetCamActive(groundCam, true)
-                            RenderScriptCams(true, false, 1, true, true)
-                            --Wait(3000)
-                            -- last camera, create interpolate
-                            fixedCam = CreateCam("DEFAULT_SCRIPTED_CAMERA")
-                            SetCamCoord(fixedCam, coords.x + 0.5,coords.y - 3.6,coords.z+1.8)
-                            SetCamRot(fixedCam, -20.0, 0, 0 + -10.0)
-                            SetCamActive(fixedCam, true)
-                            SetCamActiveWithInterp(fixedCam, groundCam, 3900, true, true)
-                            Wait(3900)
-                            DestroyCam(groundCam)
-                        end
-                        createCamera(wagonPed)
-                        Wait(10000)
-                        DestroyAllCams(true)
-                    end) ]]
                 end
             end
         end
     end)
 end
 exports('spawnWagon', handleSpawnWagon)
--------------- Tack Menu --------------
-RegisterNetEvent('tcrp-wagons:custMenu',function()
-    exports['qr-menu']:openMenu({
-        {
-            header = "Wagon Customization",
-            isMenuHeader = true,
-        },
-        {
-            header = "Select Saddle",
-            txt = "Select a saddle for your wagon",
-			icon = "fas fa-angle-double-right",
-            params = {
-                event = 'tcrp-wagons:client:saddleMenu',
-				isServer = false,
-				args = {}
-            }
-        },
-        {
-            header = "Select Blanket",
-            txt = "Select a blanket for your wagon",
-			icon = "fas fa-angle-double-right",
-            params = {
-                event = 'tcrp-wagons:client:BlanketMenu',
-				isServer = false,
-				args = {}
-            }
-        },
-        {
-            header = "Select Horn",
-            txt = "Select a horn for your wagon",
-			icon = "fas fa-angle-double-right",
-            params = {
-                event = 'tcrp-wagons:client:HornMenu',
-				isServer = false,
-				args = {}
-            }
-        },
-        {
-            header = "Select Saddle Bag",
-            txt = "Select a saddle bag for your wagon",
-			icon = "fas fa-angle-double-right",
-            params = {
-                event = 'tcrp-wagons:client:BagMenu',
-				isServer = false,
-				args = {}
-            }
-        },
-        {
-            header = "Close Menu",
-            txt = '',
-            icon = "fas fa-angle-double-left",
-            params = {
-                event = 'qr-menu:closeMenu',
-            }
-        },
-    })
-end)
---[[ RegisterCommand('tack', function()
-    TriggerEvent('tcrp-wagons:custMenu')
-end) ]]
-    
 
----------------------------- Saddles Begin ---------------------------- End Line 308
-function SaddleMenu(hash)
-    local saddleMenu = {
-        {
-            header = "Saddles",
-            isMenuHeader = true
-        }
-    }
-
-    local saddles = Config.Saddles  
-    for k, v in pairs(saddles) do
-        saddleMenu[#saddleMenu+1] = {
-            header = v.Name,
-            txt = "",
-            params = {
-                event = "tcrp-wagons:client:applySaddle",
-                args = {
-                    saddle = v.Hash
-                }
-            }
-        }
-    end
-    saddleMenu[#saddleMenu+1] = {
-        header = "Go Back",
-        txt = "",
-        icon = "fas fa-angle-double-left",
-        params = {
-            event = 'tcrp-wagons:custMenu'
-        }
-
-    }
-    exports['qr-menu']:openMenu(saddleMenu)
-end
-
-RegisterNetEvent('tcrp-wagons:client:saddleMenu',function()
-    SaddleMenu()
-end)
-
-RegisterNetEvent('tcrp-wagons:client:applySaddle',function(saddle,data)
-    for k,v in pairs(saddle) do
-        QRCore.Functions.TriggerCallback('tcrp-wagons:server:GetActiveWagon', function(data,newnames)
-            local ped = PlayerPedId()
-            local mount = Citizen.InvokeNative(0x4C8B59171957BCF7, ped)   
-            local SaddleUsing = "0x"..v 
-            Citizen.InvokeNative(0xD3A7B003ED343FD9, mount, tonumber(SaddleUsing), true, true, true) 
-            local SaddleData = {
-                SaddleUsing
-            } 
-            local SaddleDataEncoded = SaddleUsing
-            TriggerServerEvent('tcrp-wagons:server:SaveSaddle',SaddleDataEncoded)
-        end)
-    end
-    SaddleMenu()
-end)
-
----------------------------- Saddles End ----------------------------
-
----------------------------- Blankets Begin ------------------------- End Line 360
-function BlanketMenu(hash)
-    local blanketMenu = {
-        {
-            header = "Blankets",
-            isMenuHeader = true
-        }
-    }
-
-    local blankets = Config.Blankets  
-    for k, v in pairs(blankets) do
-        blanketMenu[#blanketMenu+1] = {
-            header = v.Name,
-            txt = "",
-            params = {
-                event = "tcrp-wagons:client:applyBlanket",
-                args = {
-                    blanket = v.Hash
-                }
-            }
-        }
-    end
-    blanketMenu[#blanketMenu+1] = {
-        header = "close already",
-        txt = "",
-        params = {
-            event = "qr-menu:client:closeMenu"
-        }
-
-    }
-    exports['qr-menu']:openMenu(blanketMenu)
-end
-
-RegisterNetEvent('tcrp-wagons:client:BlanketMenu',function()
-    BlanketMenu()
-end)
-
---[[ RegisterNetEvent('tcrp-wagons:client:applyBlanket',function(blanket)
-    for k,v in pairs(blanket) do
-        local ped = PlayerPedId()
-        local mount = Citizen.InvokeNative(0x4C8B59171957BCF7, ped)   
-        local BlanketUsing = "0x"..v 
-        print(v)
-        Citizen.InvokeNative(0xD3A7B003ED343FD9, mount, tonumber(BlanketUsing), true, true, true) 
-        print('Blanket Using :'..tonumber(BlanketUsing))
-    end
-    BlanketMenu()
-end) ]]
-RegisterNetEvent('tcrp-wagons:client:applyBlanket',function(blanket,data)
-    for k,v in pairs(blanket) do
-        QRCore.Functions.TriggerCallback('tcrp-wagons:server:GetActiveWagon', function(data,newnames)
-            local ped = PlayerPedId()
-            local mount = Citizen.InvokeNative(0x4C8B59171957BCF7, ped)   
-            local BlanketUsing = "0x"..v 
-            Citizen.InvokeNative(0xD3A7B003ED343FD9, mount, tonumber(BlanketUsing), true, true, true) 
-            local BlanketData = {
-                BlanketUsing
-            } 
-            local BlanketDataEncoded = BlanketUsing
-            TriggerServerEvent('tcrp-wagons:server:SaveBlanket',BlanketDataEncoded)
-        end)
-    end
-    BlanketMenu()
-end)
-
----------------------------- Blankets End ------------------------- 
-
-
----------------------------- Horns Begin ------------------------- End Line 408 
-function HornMenu(hash)
-    local hornMenu = {
-        {
-            header = "Horns",
-            isMenuHeader = true
-        }
-    }
-
-    local horns = Config.Horns  
-    for k, v in pairs(horns) do
-        hornMenu[#hornMenu+1] = {
-            header = v.Name,
-            txt = "",
-            params = {
-                event = "tcrp-wagons:client:applyHorn",
-                args = {
-                    horn = v.Hash
-                }
-            }
-        }
-    end
-    hornMenu[#hornMenu+1] = {
-        header = "close already",
-        txt = "",
-        params = {
-            event = "qr-menu:client:closeMenu"
-        }
-
-    }
-    exports['qr-menu']:openMenu(hornMenu)
-end
-
-RegisterNetEvent('tcrp-wagons:client:HornMenu',function()
-    HornMenu()
-end)
-RegisterNetEvent('tcrp-wagons:client:applyHorn',function(horn,data)
-    for k,v in pairs(horn) do
-        QRCore.Functions.TriggerCallback('tcrp-wagons:server:GetActiveWagon', function(data,newnames)
-            local ped = PlayerPedId()
-            local mount = Citizen.InvokeNative(0x4C8B59171957BCF7, ped)   
-            local HornUsing = "0x"..v 
-            Citizen.InvokeNative(0xD3A7B003ED343FD9, mount, tonumber(HornUsing), true, true, true) 
-            local SaddleData = {
-                HornUsing
-            } 
-            local HornDataEncoded = HornUsing
-            TriggerServerEvent('tcrp-wagons:server:SaveHorn',HornDataEncoded)
-        end)
-    end
-    HornMenu()
-end)
-
----------------------------- Horns End ------------------------- 
-
----------------------------- Saddle Bags Begin------------------------- 
-function BagMenu(hash)
-    local bagMenu = {
-        {
-            header = "Saddle Bags",
-            isMenuHeader = true
-        }
-    }
-
-    local bags = Config.SaddleBags  
-    for k, v in pairs(bags) do
-        bagMenu[#bagMenu+1] = {
-            header = v.Name,
-            txt = "",
-            params = {
-                event = "tcrp-wagons:client:applyBag",
-                args = {
-                    bag = v.Hash
-                }
-            }
-        }
-    end
-    bagMenu[#bagMenu+1] = {
-        header = "close already",
-        txt = "",
-        params = {
-            event = "qr-menu:client:closeMenu"
-        }
-
-    }
-    exports['qr-menu']:openMenu(bagMenu)
-end
-
-RegisterNetEvent('tcrp-wagons:client:BagMenu',function()
-    BagMenu()
-end)
-
-RegisterNetEvent('tcrp-wagons:client:applyBag',function(bag,BagUsing,data)
-    for k,v in pairs(bag) do
-        local ped = PlayerPedId()
-        local mount = Citizen.InvokeNative(0x4C8B59171957BCF7, ped)   
-        local BagUsing = "0x"..v 
-        print(v)
-        Citizen.InvokeNative(0xD3A7B003ED343FD9, mount, tonumber(BagUsing), true, true, true) 
-        print('Bag Using :'..BagUsing)
-        local BagData = {
-            BagUsing
-        }
-        local BagDataEncoded = json.encode(BagData)
-        if BagDataEncoded ~= "{}" then
-            TriggerServerEvent('tcrp-wagons:server:SaveToDb')
-        else 
-            print("error invalid data")
-        end
-    end
-    BagMenu()
-end)
-
-        
-
----------------------------- Saddle Bags End------------------------- 
-
-
----------------------------- Stirrups Begin ------------------------- 
-
----------------------------- Stirrups End ------------------------- 
-
-------- Tack Menu End -------
-
-function applyImportantThings()
-    Citizen.InvokeNative(0x931B241409216C1F, PlayerPedId(), wagonPed, 0)
-    SetPedConfigFlag(wagonPed, 297, true)
-    QRCore.Functions.TriggerCallback('tcrp-wagons:server:CheckSaddle', function(cb,saddle)
-        print(tonumber(cb.saddle))
-        local ped = PlayerPedId()
-        local mount = Citizen.InvokeNative(0x4C8B59171957BCF7, ped)
-        Citizen.InvokeNative(0xD3A7B003ED343FD9, wagonPed, tonumber(cb.saddle), true, true, true) 
-    end)
-    QRCore.Functions.TriggerCallback('tcrp-wagons:server:CheckBlanket', function(cb,blanket)
-        print(tonumber(cb.blanket))
-        local ped = PlayerPedId()
-        local mount = Citizen.InvokeNative(0x4C8B59171957BCF7, ped)
-        Citizen.InvokeNative(0xD3A7B003ED343FD9, wagonPed, tonumber(cb.blanket), true, true, true) 
-    end)
-    QRCore.Functions.TriggerCallback('tcrp-wagons:server:CheckHorn', function(cb,horn)
-        print(tonumber(cb.horn))
-        local ped = PlayerPedId()
-        local mount = Citizen.InvokeNative(0x4C8B59171957BCF7, ped)
-        Citizen.InvokeNative(0xD3A7B003ED343FD9, wagonPed, tonumber(cb.horn), true, true, true) 
-    end)
-    QRCore.Functions.TriggerCallback('tcrp-wagons:server:CheckBag', function(cb,bag)
-        print(tonumber(cb.bag))
-        local ped = PlayerPedId()
-        local mount = Citizen.InvokeNative(0x4C8B59171957BCF7, ped)
-        Citizen.InvokeNative(0xD3A7B003ED343FD9, wagonPed, tonumber(cb.bag), true, true, true) 
-    end)
-end
 
 function moveWagonToPlayer()
     Citizen.CreateThread(function()
@@ -1421,6 +1033,7 @@ end)
 
 
 local function Flee()
+    Wait(1000)
     DeleteEntity(wagonPed)
     Wait(1000)
     wagonPed = 0
@@ -1449,61 +1062,62 @@ end)
 AddEventHandler('onResourceStop', function(resource)
     if (resource == GetCurrentResourceName()) then
         for k,v in pairs(bwentities) do
-            DeletePed(v)
-            SetEntityAsNoLongerNeeded(v)
+            DeleteVehicle(v)
+            SetVehicleAsNoLongerNeeded(v)
         end
         for k,v in pairs(tbentities) do
-            DeletePed(v)
-            SetEntityAsNoLongerNeeded(v)
+            DeleteVehicle(v)
+            SetVehicleAsNoLongerNeeded(v)
         end
         for k,v in pairs(sdentities) do
-            DeletePed(v)
-            SetEntityAsNoLongerNeeded(v)
+            DeleteVehicle(v)
+            SetVehicleAsNoLongerNeeded(v)
         end
-        for k,v in pairs(anentities) do
-            DeletePed(v)
-            SetEntityAsNoLongerNeeded(v)
+        for k,v in pairs(annesburgentities) do
+            DeleteVehicle(v)
+            SetVehicleAsNoLongerNeeded(v)
         end
         for k,v in pairs(rhodesentities) do
-            DeletePed(v)
-            SetEntityAsNoLongerNeeded(v)
+            DeleteVehicle(v)
+            SetVehicleAsNoLongerNeeded(v)
         end
         for k,v in pairs(sbentities) do
-            DeletePed(v)
-            SetEntityAsNoLongerNeeded(v)
+            DeleteVehicle(v)
+            SetVehicleAsNoLongerNeeded(v)
         end
 
         for k,v in pairs(rhnpcs) do
-            DeletePed(v)
+            DeleteEntity(v)
             SetEntityAsNoLongerNeeded(v)
         end
         for k,v in pairs(annpcs) do
-            DeletePed(v)
+            DeleteEntity(v)
             SetEntityAsNoLongerNeeded(v)
         end
         for k,v in pairs(bwnpcs) do
-            DeletePed(v)
+            DeleteEntity(v)
             SetEntityAsNoLongerNeeded(v)
         end
         for k,v in pairs(sdnpcs) do
-            DeletePed(v)
+            DeleteEntity(v)
             SetEntityAsNoLongerNeeded(v)
         end
         for k,v in pairs(twnpcs) do
-            DeletePed(v)
+            DeleteEntity(v)
             SetEntityAsNoLongerNeeded(v)
         end
         for k,v in pairs(sbnpcs) do
-            DeletePed(v)
+            DeleteEntity(v)
             SetEntityAsNoLongerNeeded(v)
         end
 
         if (wagonPed ~= 0) then
-            DeletePed(wagonPed)
+            DeleteVehicle(wagonPed)
             SetEntityAsNoLongerNeeded(wagonPed)
         end
     end
 end)
+
 
 CreateThread(function()
     for key,value in pairs(Config.ModelSpawns) do
@@ -1632,39 +1246,3 @@ RegisterNetEvent('tcrp-wagons:client:DeleteWagon', function(data)
     QRCore.Functions.Notify('Wagon has been successfully removed', 'success', 7500)
     TriggerServerEvent("tcrp-wagons:server:DelWagos", data.player.id)
 end)
-
-
-	----------------------------- Humanity's Command Cave   -----------------------------
---[[ 	RegisterCommand("hl", function()
-		Citizen.InvokeNative(0xD3A7B003ED343FD9, SpawnplayerWagon, 0x635E387C, true, true, true) -- add comp
-	end) ]]
---[[ 	RegisterCommand("hlx", function()
-		Citizen.InvokeNative(0x0D7FFA1B2F69ED82, SpawnplayerWagon, 0x635E387C, true, true, true) -- remove comp
-	end) ]]
-	--[[ 	RegisterCommand("saoff", function()
-		Citizen.InvokeNative(0x0D7FFA1B2F69ED82, SpawnplayerWagon, 0x150D0DAA, true, true, true) -- remove comp
-	end) ]]
---[[	RegisterCommand("hfemale", function()
-		Citizen.InvokeNative(0x5653AB26C82938CF, entity, 41611, 0.0)
-		Citizen.InvokeNative(0xCC8CA3E88256E58F, entity, 0, 1, 1, 1, 0)
-	end) ]]
---[[	RegisterCommand("hmale", function()
-		Citizen.InvokeNative(0x5653AB26C82938CF, entity, 41611, 1.0) 
-		Citizen.InvokeNative(0xCC8CA3E88256E58F, entity, 0, 1, 1, 1, 0)
-	end) ]]
-	-- Exiting Humanity's Command Cave
-
-	----------------------------- Chat Suggestions   -----------------------------
---[[ 	TriggerEvent("chat:addSuggestion", "/hl", "Add a lantern to your wagon!", {
-		{name = "", help = "to remove do /hlx"}
-	})
-	TriggerEvent("chat:addSuggestion", "/hlx", "Remove the lantern from your wagon", {
-		{name = "", help = "Do /hl to add a lantern"}
-	})
-	TriggerEvent("chat:addSuggestion", "/hfemale", "Turn your wagon female!", {
-	})
-	TriggerEvent("chat:addSuggestion", "/hmale", "Turn your wagon male!", {
-	}) ]]
-	----------------------------- Chat Suggestions End   -----------------------------
-
-    ----------------------------- Inventory Shit   -----------------------------
