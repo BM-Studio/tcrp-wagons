@@ -955,14 +955,26 @@ local function SpawnWagon()
                     initializing = false
                     return
                 end
-                local coords = GetEntityCoords(ped)
                 local heading = GetEntityHeading(ped)-180
                 if (wagonPed == 0) then
                     wagonPed = CreateVehicle(model, spawnPosition, heading, true, true, 0, 0)
+                    local coords = GetEntityCoords(PlayerPedId())
+                    local wagonCoords = GetEntityCoords(wagonPed)
+                    local distance = GetDistanceBetweenCoords(wagonCoords, coords)
+                    if distance > 150 then
+                        QRCore.Functions.Notify('You need to be near a road!', 'error', 7500)
+                        Wait(100)
+                        DeleteVehicle(wagonPed)
+                        Wait(100)
+                        wagonPed = 0
+                        WagonCalled = false
+                    else 
+                    SetModelAsNoLongerNeeded(model)
                     Citizen.InvokeNative(0x58A850EAEE20FAA3, wagonPed, true)
                     while not DoesEntityExist(wagonPed) do
                         Wait(10)
                     end
+                    Wait(100)
                     getControlOfEntity(wagonPed)
                     Citizen.InvokeNative(0x283978A15512B2FE, wagonPed, true)
                     Citizen.InvokeNative(0x23F74C2FDA6E7C61, 631964804, wagonPed)
@@ -975,7 +987,8 @@ local function SpawnWagon()
                     SetPedPromptName(wagonPed, hname)
                     wagonSpawned = true                    
                     moveWagonToPlayer()
-                    print(SaddleUsing)
+                    Wait(5000)
+                end
                 end
             end
         end
