@@ -975,7 +975,6 @@ local function SpawnWagon()
                     SetPedPromptName(wagonPed, hname)
                     wagonSpawned = true                    
                     moveWagonToPlayer()
-                    applyImportantThings()
                     print(SaddleUsing)
                 end
             end
