@@ -19,5 +19,5 @@ server_scripts {
 }
 
 dependencies {
-    'qr-core'
+    'rsg-core'
 }

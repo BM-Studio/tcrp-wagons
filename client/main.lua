@@ -16,7 +16,7 @@ local timeoutTimer = 30
 local wagonPed = 0
 local wagonSpawned = false
 local WagonCalled = false
-local QRCore = exports['qr-core']:GetCoreObject()
+local RSGCore = exports['rsg-core']:GetCoreObject()
 local newnames = ''
 local wagonDBID
 local hasSpawned = false 
@@ -30,7 +30,7 @@ local inTumble = false
 local inSB = false
 
 RegisterCommand('setwagonname',function(input)
-    local input = exports['qr-input']:ShowInput({
+    local input = exports['rsg-input']:ShowInput({
     header = "Name your wagon",
     submitText = "Confirm",
     inputs = {
@@ -79,7 +79,7 @@ Citizen.CreateThread(function() -- Handle Annesburg
                             SetEntityCanBeDamaged(entity, false)
                             SetEntityInvincible(entity, true)
                             SetBlockingOfNonTemporaryEvents(npc, true)
-                            exports['qr-target']:AddTargetEntity(entity, {
+                            exports['rsg-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
                                         icon = "fas fa-dharmachakra",
@@ -128,7 +128,7 @@ Citizen.CreateThread(function() -- Handle Annesburg
                     Wait(1)
                     TriggerEvent('tcrp-wagons:DoShit',function(cb)
                     end)
-                    exports['qr-target']:AddTargetEntity(ped, {
+                    exports['rsg-target']:AddTargetEntity(ped, {
                         options = {
                             {
                                 icon = "fas fa-dharmachakra",
@@ -215,7 +215,7 @@ Citizen.CreateThread(function() -- Handle Strawberry
                             SetEntityCanBeDamaged(entity, false)
                             SetEntityInvincible(entity, true)
                             SetBlockingOfNonTemporaryEvents(npc, true)
-                            exports['qr-target']:AddTargetEntity(entity, {
+                            exports['rsg-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
                                         icon = "fas fa-dharmachakra",
@@ -264,7 +264,7 @@ Citizen.CreateThread(function() -- Handle Strawberry
                     Wait(1)
                     TriggerEvent('tcrp-wagons:DoShit',function(cb)
                     end)
-                    exports['qr-target']:AddTargetEntity(ped, {
+                    exports['rsg-target']:AddTargetEntity(ped, {
                         options = {
                             {
                                 icon = "fas fa-dharmachakra",
@@ -351,7 +351,7 @@ Citizen.CreateThread(function() -- Handle Rhodes
                             SetEntityCanBeDamaged(entity, false)
                             SetEntityInvincible(entity, true)
                             SetBlockingOfNonTemporaryEvents(npc, true)
-                            exports['qr-target']:AddTargetEntity(entity, {
+                            exports['rsg-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
                                         icon = "fas fa-dharmachakra",
@@ -400,7 +400,7 @@ Citizen.CreateThread(function() -- Handle Rhodes
                     Wait(1)
                     TriggerEvent('tcrp-wagons:DoShit',function(cb)
                     end)
-                    exports['qr-target']:AddTargetEntity(ped, {
+                    exports['rsg-target']:AddTargetEntity(ped, {
                         options = {
                             {
                                 icon = "fas fa-dharmachakra",
@@ -487,7 +487,7 @@ Citizen.CreateThread(function() -- Handle Blackwater
                             SetEntityCanBeDamaged(entity, false)
                             SetEntityInvincible(entity, true)
                             SetBlockingOfNonTemporaryEvents(npc, true)
-                            exports['qr-target']:AddTargetEntity(entity, {
+                            exports['rsg-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
                                         icon = "fas fa-dharmachakra",
@@ -536,7 +536,7 @@ Citizen.CreateThread(function() -- Handle Blackwater
                     Wait(1)
                     TriggerEvent('tcrp-wagons:DoShit',function(cb)
                     end)
-                    exports['qr-target']:AddTargetEntity(ped, {
+                    exports['rsg-target']:AddTargetEntity(ped, {
                         options = {
                             {
                                 icon = "fas fa-dharmachakra",
@@ -623,7 +623,7 @@ Citizen.CreateThread(function() -- Handle Saint Denis
                             SetEntityCanBeDamaged(entity, false)
                             SetEntityInvincible(entity, true)
                             SetBlockingOfNonTemporaryEvents(npc, true)
-                            exports['qr-target']:AddTargetEntity(entity, {
+                            exports['rsg-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
                                         icon = "fas fa-dharmachakra",
@@ -672,7 +672,7 @@ Citizen.CreateThread(function() -- Handle Saint Denis
                     Wait(1)
                     TriggerEvent('tcrp-wagons:DoShit',function(cb)
                     end)
-                    exports['qr-target']:AddTargetEntity(ped, {
+                    exports['rsg-target']:AddTargetEntity(ped, {
                         options = {
                             {
                                 icon = "fas fa-dharmachakra",
@@ -758,7 +758,7 @@ Citizen.CreateThread(function() -- Handle Tumbleweed
                             SetEntityCanBeDamaged(entity, false)
                             SetEntityInvincible(entity, true)
                             SetBlockingOfNonTemporaryEvents(npc, true)
-                            exports['qr-target']:AddTargetEntity(entity, {
+                            exports['rsg-target']:AddTargetEntity(entity, {
                                 options = {
                                     {
                                         icon = "fas fa-dharmachakra",
@@ -807,7 +807,7 @@ Citizen.CreateThread(function() -- Handle Tumbleweed
                     Wait(1)
                     TriggerEvent('tcrp-wagons:DoShit',function(cb)
                     end)
-                    exports['qr-target']:AddTargetEntity(ped, {
+                    exports['rsg-target']:AddTargetEntity(ped, {
                         options = {
                             {
                                 icon = "fas fa-dharmachakra",
@@ -871,7 +871,7 @@ end)
 CreateThread(function()
     while true do
         Wait(1)
-        if Citizen.InvokeNative(0x91AEF906BCA88877, 0, QRCore.Shared.Keybinds['B']) then -- openinventory
+        if Citizen.InvokeNative(0x91AEF906BCA88877, 0, RSGCore.Shared.Keybinds['B']) then -- openinventory
             InvWagon()
 			Wait(10000) -- Spam protect
         end
@@ -879,7 +879,7 @@ CreateThread(function()
 end)
 
 function InvWagon()
-    QRCore.Functions.TriggerCallback('tcrp-wagons:server:GetActiveWagon', function(data,newnames)
+    RSGCore.Functions.TriggerCallback('tcrp-wagons:server:GetActiveWagon', function(data,newnames)
         if wagonPed ~= 0 then
             local pcoords = GetEntityCoords(PlayerPedId())
             local hcoords = GetEntityCoords(wagonPed)
@@ -898,23 +898,23 @@ function InvWagon()
 end     
 
 local function TradeWagon()
-    QRCore.Functions.TriggerCallback('tcrp-wagons:server:GetActiveWagon', function(data,newnames)
+    RSGCore.Functions.TriggerCallback('tcrp-wagons:server:GetActiveWagon', function(data,newnames)
         if wagonPed ~= 0 then
-            local player, distance = QRCore.Functions.GetClosestPlayer()
+            local player, distance = RSGCore.Functions.GetClosestPlayer()
             if player ~= -1 and distance < 1.5 then
                 local playerId = GetPlayerServerId(player)
                 local wagonId = data.citizenid
                 TriggerServerEvent('tcrp-wagons:server:TradeWagon', playerId, wagonId)
-                QRCore.Functions.Notify('Wagon has been traded with nearest person', 'success', 7500)
+                RSGCore.Functions.Notify('Wagon has been traded with nearest person', 'success', 7500)
             else
-                QRCore.Functions.Notify('No nearby person!', 'success', 7500)
+                RSGCore.Functions.Notify('No nearby person!', 'success', 7500)
             end
         end
     end)
 end
 
 local function SpawnWagon()
-    QRCore.Functions.TriggerCallback('tcrp-wagons:server:GetActiveWagon', function(data,newnames)
+    RSGCore.Functions.TriggerCallback('tcrp-wagons:server:GetActiveWagon', function(data,newnames)
         if (data) then
             local ped = PlayerPedId()
             local model = GetHashKey(data.wagon)
@@ -962,7 +962,7 @@ local function SpawnWagon()
                     local wagonCoords = GetEntityCoords(wagonPed)
                     local distance = GetDistanceBetweenCoords(wagonCoords, coords)
                     if distance > 150 then
-                        QRCore.Functions.Notify('You need to be near a road!', 'error', 7500)
+                        RSGCore.Functions.Notify('You need to be near a road!', 'error', 7500)
                         Wait(100)
                         DeleteVehicle(wagonPed)
                         Wait(100)
@@ -1055,7 +1055,7 @@ end
 CreateThread(function()
     while true do
         Wait(1)
-        if Citizen.InvokeNative(0x91AEF906BCA88877, 0, QRCore.Shared.Keybinds['J']) then -- call wagon
+        if Citizen.InvokeNative(0x91AEF906BCA88877, 0, RSGCore.Shared.Keybinds['J']) then -- call wagon
             if not WagonCalled then
 			SpawnWagon()
             WagonCalled = true
@@ -1063,7 +1063,7 @@ CreateThread(function()
      else
         moveWagonToPlayer()
          end
-    elseif Citizen.InvokeNative(0x91AEF906BCA88877, 0, QRCore.Shared.Keybinds['HorseCommandFlee']) then -- flee wagon
+    elseif Citizen.InvokeNative(0x91AEF906BCA88877, 0, RSGCore.Shared.Keybinds['HorseCommandFlee']) then -- flee wagon
 		    if wagonSpawned ~= 0 then
 			    Flee()
 		    end
@@ -1141,7 +1141,7 @@ CreateThread(function()
 end)
 
 RegisterNetEvent("tcrp-wagons:client:tradewagon", function(data)
-    QRCore.Functions.TriggerCallback('tcrp-wagons:server:GetActiveWagon', function(data,newnames)
+    RSGCore.Functions.TriggerCallback('tcrp-wagons:server:GetActiveWagon', function(data,newnames)
         if (wagonPed ~= 0) then
             TradeWagon()
             Flee()
@@ -1150,7 +1150,7 @@ RegisterNetEvent("tcrp-wagons:client:tradewagon", function(data)
             SetEntityAsNoLongerNeeded(wagonPed)
             WagonCalled = false
         else
-            QRCore.Functions.Notify('You dont have a wagon out', 'success', 7500)
+            RSGCore.Functions.Notify('You dont have a wagon out', 'success', 7500)
         end
     end)
 end)
@@ -1160,13 +1160,13 @@ local WagonId = nil
 RegisterNetEvent('tcrp-wagons:client:SpawnWagon', function(data)
     WagonId = data.player.id
     TriggerServerEvent("tcrp-wagons:server:SetWagosActive", data.player.id)
-    QRCore.Functions.Notify('Wagon has been set active call from back by whistling', 'success', 7500)
+    RSGCore.Functions.Notify('Wagon has been set active call from back by whistling', 'success', 7500)
 end)
 
 RegisterNetEvent("tcrp-wagons:client:storewagon", function(data)
  if (wagonPed ~= 0) then
     TriggerServerEvent("tcrp-wagons:server:SetWagosUnActive", WagonId)
-    QRCore.Functions.Notify('Taking your wagon to the back', 'success', 7500)
+    RSGCore.Functions.Notify('Taking your wagon to the back', 'success', 7500)
     Flee()
     Wait(10000)
     DeletePed(wagonPed)
@@ -1183,7 +1183,7 @@ RegisterNetEvent('tcrp-wagons:client:menu', function()
             icon = "fa-solid fa-circle-user",
         },
     }
-    QRCore.Functions.TriggerCallback('tcrp-wagons:server:GetWagon', function(cb)
+    RSGCore.Functions.TriggerCallback('tcrp-wagons:server:GetWagon', function(cb)
         for _, v in pairs(cb) do
             GetWagon[#GetWagon + 1] = {
                 header = v.name,
@@ -1198,7 +1198,7 @@ RegisterNetEvent('tcrp-wagons:client:menu', function()
                 }
             }
         end
-        exports['qr-menu']:openMenu(GetWagon)
+        exports['rsg-menu']:openMenu(GetWagon)
     end)
 end)
 
@@ -1210,7 +1210,7 @@ RegisterNetEvent('tcrp-wagons:client:MenuDel', function()
             icon = "fa-solid fa-circle-user",
         },
     }
-    QRCore.Functions.TriggerCallback('tcrp-wagons:server:GetWagon', function(cb)
+    RSGCore.Functions.TriggerCallback('tcrp-wagons:server:GetWagon', function(cb)
         for _, v in pairs(cb) do
             GetWagon[#GetWagon + 1] = {
                 header = v.name,
@@ -1222,7 +1222,7 @@ RegisterNetEvent('tcrp-wagons:client:MenuDel', function()
                 }
             }
         end
-        exports['qr-menu']:openMenu(GetWagon)
+        exports['rsg-menu']:openMenu(GetWagon)
     end)
 end)
 
@@ -1235,7 +1235,7 @@ RegisterNetEvent('tcrp-wagons:client:MenuDelC', function(data)
             icon = "fa-solid fa-circle-user",
         },
     }
-    QRCore.Functions.TriggerCallback('tcrp-wagons:server:GetWagon', function(cb)
+    RSGCore.Functions.TriggerCallback('tcrp-wagons:server:GetWagon', function(cb)
         for _, v in pairs(cb) do
             GetWagon[#GetWagon + 1] = {
                 header = v.name,
@@ -1250,11 +1250,11 @@ RegisterNetEvent('tcrp-wagons:client:MenuDelC', function(data)
                 }
             }
         end
-        exports['qr-menu']:openMenu(GetWagon)
+        exports['rsg-menu']:openMenu(GetWagon)
     end)
 end)
 
 RegisterNetEvent('tcrp-wagons:client:DeleteWagon', function(data)
-    QRCore.Functions.Notify('Wagon has been successfully removed', 'success', 7500)
+    RSGCore.Functions.Notify('Wagon has been successfully removed', 'success', 7500)
     TriggerServerEvent("tcrp-wagons:server:DelWagos", data.player.id)
 end)

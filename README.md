@@ -1,8 +1,11 @@
+# RSGCore Conversion by RexShack
+- original verions and credits to https://github.com/The-Crossroads-Roleplay/tcrp-wagons
+
 # 🐴 tcrp-wagons
 
 ## 1. Requirements
 
-[qr-core](https://github.com/QRCore-RedM-Re/qr-core)
+[rsg-core](https://github.com/Rexshack-RedM/rsg-core)
 
 ## 2. Installation
 - drag and drop tcrp-wagons into resources
