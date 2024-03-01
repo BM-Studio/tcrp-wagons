@@ -1,3 +1,5 @@
+local RSGCore = exports['rsg-core']:GetCoreObject()
+
 local rhodesentities = {}
 local bwentities = {}
 local sdentities = {}
@@ -16,7 +18,6 @@ local timeoutTimer = 30
 local wagonPed = 0
 local wagonSpawned = false
 local WagonCalled = false
-local RSGCore = exports['rsg-core']:GetCoreObject()
 local newnames = ''
 local wagonDBID
 local hasSpawned = false 
@@ -28,6 +29,8 @@ local inSD = false
 local inAnnesburg = false
 local inTumble = false
 local inSB = false
+
+local huntingwagon = false
 
 RegisterCommand('setwagonname',function(input)
     local input = exports['rsg-input']:ShowInput({
@@ -922,10 +925,16 @@ local function SpawnWagon()
             local howfar = math.random(50,100)
             local hname = data.name
 
+            if data.wagon == 'huntercart01' then
+                huntingwagon = true
+            end
+
             if (location) then
-                while not HasModelLoaded(model) do
-                    RequestModel(model)
-                    Wait(10)
+                if not huntingwagon then
+                    while not HasModelLoaded(model) do
+                        RequestModel(model)
+                        Wait(10)
+                    end
                 end
 
                 local spawnPosition
@@ -955,40 +964,74 @@ local function SpawnWagon()
                     initializing = false
                     return
                 end
+
                 local heading = GetEntityHeading(ped)-180
+
                 if (wagonPed == 0) then
-                    wagonPed = CreateVehicle(model, spawnPosition, heading, true, true, 0, 0)
+                    if not huntingwagon then
+                        wagonPed = CreateVehicle(model, spawnPosition, heading, true, true, 0, 0)
+                    else
+                        TriggerServerEvent('bm-huntingwagon:server:SpawnWagon', spawnPosition)
+
+                        Wait(3000)
+
+                        local wagonID = exports['bm-huntingwagon']:MyWagon()
+                        local huntingWagonPed = exports['bm-huntingwagon']:MyWagonPed()
+
+                        wagonPed = NetworkGetEntityFromNetworkId(wagonID) or huntingWagonPed
+
+                        Wait(1000)
+
+                        SetPedNameDebug(wagonPed, hname)
+                        SetPedPromptName(wagonPed, hname)
+                    end
+
                     local coords = GetEntityCoords(PlayerPedId())
                     local wagonCoords = GetEntityCoords(wagonPed)
                     local distance = GetDistanceBetweenCoords(wagonCoords, coords)
+
                     if distance > 150 then
-                        RSGCore.Functions.Notify('You need to be near a road!', 'error', 7500)
-                        Wait(100)
-                        DeleteVehicle(wagonPed)
-                        Wait(100)
-                        wagonPed = 0
-                        WagonCalled = false
-                    else 
-                    SetModelAsNoLongerNeeded(model)
-                    Citizen.InvokeNative(0x58A850EAEE20FAA3, wagonPed, true)
-                    while not DoesEntityExist(wagonPed) do
-                        Wait(10)
+                        if not huntingwagon then
+                            RSGCore.Functions.Notify('You need to be near a road!', 'error', 7500)
+                            Wait(100)
+                            DeleteVehicle(wagonPed)
+                            Wait(100)
+                            wagonPed = 0
+                            WagonCalled = false
+                            huntingwagon = false
+                        else
+                            TriggerEvent('bm-huntingwagon:client:RemoveWagon')
+                            wagonPed = 0
+                            WagonCalled = false
+                            huntingwagon = false
+                        end
+                    else
+                        if not huntingwagon then
+                            SetModelAsNoLongerNeeded(model)
+                            Citizen.InvokeNative(0x58A850EAEE20FAA3, wagonPed, true)
+                            while not DoesEntityExist(wagonPed) do
+                                Wait(10)
+                            end
+                            Wait(100)
+                            getControlOfEntity(wagonPed)
+                            Citizen.InvokeNative(0x283978A15512B2FE, wagonPed, true)
+                            Citizen.InvokeNative(0x23F74C2FDA6E7C61, 631964804, wagonPed)
+                            local hasp = GetHashKey("PLAYER")
+                            Citizen.InvokeNative(0xADB3F206518799E8, wagonPed, hasp)
+                            Citizen.InvokeNative(0xCC97B29285B1DC3B, wagonPed, 1)
+                            Citizen.InvokeNative(0x931B241409216C1F , PlayerPedId(), wagonPed , 0)
+                            SetModelAsNoLongerNeeded(model)
+                            SetPedNameDebug(wagonPed, hname)
+                            SetPedPromptName(wagonPed, hname)
+                            wagonSpawned = true
+                            moveWagonToPlayer()
+                            Wait(5000)
+                        else
+                            wagonSpawned = true
+
+                            moveWagonToPlayer()
+                        end
                     end
-                    Wait(100)
-                    getControlOfEntity(wagonPed)
-                    Citizen.InvokeNative(0x283978A15512B2FE, wagonPed, true)
-                    Citizen.InvokeNative(0x23F74C2FDA6E7C61, 631964804, wagonPed)
-                    local hasp = GetHashKey("PLAYER")
-                    Citizen.InvokeNative(0xADB3F206518799E8, wagonPed, hasp)
-                    Citizen.InvokeNative(0xCC97B29285B1DC3B, wagonPed, 1)
-                    Citizen.InvokeNative(0x931B241409216C1F , PlayerPedId(), wagonPed , 0)
-                    SetModelAsNoLongerNeeded(model)
-                    SetPedNameDebug(wagonPed, hname)
-                    SetPedPromptName(wagonPed, hname)
-                    wagonSpawned = true                    
-                    moveWagonToPlayer()
-                    Wait(5000)
-                end
                 end
             end
         end
@@ -1045,11 +1088,19 @@ end)
 
 
 local function Flee()
-    Wait(1000)
-    DeleteEntity(wagonPed)
-    Wait(1000)
-    wagonPed = 0
-    WagonCalled = false
+    if not huntingwagon then
+        Wait(1000)
+        DeleteEntity(wagonPed)
+        Wait(1000)
+        wagonPed = 0
+        WagonCalled = false
+    else
+        TriggerEvent('bm-huntingwagon:client:RemoveWagon')
+
+        wagonPed = 0
+        WagonCalled = false
+        huntingwagon = false
+    end
 end
 
 CreateThread(function()
